@@ -27,7 +27,11 @@ logging.info("Ouverture du navigateur Selenium.")
 options = Options()
 if SHADOW:
     options.add_argument('-headless')
-service = Service(executable_path=f"{os.getcwd()}/geckodriver")
+
+if ":\\" in os.getcwd():
+    service = Service(executable_path=f".{os.getcwd()}/geckodriver")
+else:
+    service = Service(executable_path=f"{os.getcwd()}/geckodriver")
 driver = webdriver.Firefox(options=options, service=service)
 
 driver.get("https://moodle.univ-ubs.fr/")
