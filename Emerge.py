@@ -9,18 +9,19 @@ from dotenv import load_dotenv
 import os
 import logging
 
+load_dotenv()
+USERNAME = os.getenv("MoodleUs", "USER")
+PASSWORD = os.getenv("MoodlePa", "PASS")
+SHADOW = os.getenv("MoodleSh", "False").lower() == "true"
+STATUT = os.getenv("MoodleSt")
+path = os.path.dirname(__file__)
+
 logging.basicConfig(
     filename='emergement.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     filemode='a'
 )
-
-load_dotenv()
-USERNAME = os.getenv("MoodleUs", "USER")
-PASSWORD = os.getenv("MoodlePa", "PASS")
-SHADOW = os.getenv("MoodleSh", "False").lower() == "true"
-STATUT = os.getenv("MoodleSt")
 
 logging.info("Ouverture du navigateur Selenium.")
 
@@ -29,9 +30,9 @@ if SHADOW:
     options.add_argument('-headless')
 
 if ":\\" in os.getcwd():
-    service = Service(executable_path=f".{os.getcwd()}/geckodriver")
+    service = Service(executable_path=f".{path}/geckodriver")
 else:
-    service = Service(executable_path=f"{os.getcwd()}/geckodriver")
+    service = Service(executable_path=f"{path}/geckodriver")
 driver = webdriver.Firefox(options=options, service=service)
 
 driver.get("https://moodle.univ-ubs.fr/")
@@ -57,13 +58,13 @@ login_button.click()
 try:
     error_message = driver.find_element(By.XPATH, "//*[contains(text(), 'Mauvais identifiant / mot de passe')]")
     print("[-] Mauvais Identifiant ou Mot de passe")
-    logging.info("Mauvais Identifiant ou Mot de passe")
+    logging.warning("Mauvais Identifiant ou Mot de passe")
     if USERNAME == 'USER':
         print("[-] Créez le fichier .env pour y stocker vos identifiants (https://github.com/MTlyx/Emergement_UBS)")
     driver.quit()
     quit()
 except NoSuchElementException:
-    logging.warning("Connection réussi")
+    logging.info("Connection réussi")
     print("[*] Connection réussi")
 
 time.sleep(1)
