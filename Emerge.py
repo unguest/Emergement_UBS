@@ -7,6 +7,14 @@ from selenium.common.exceptions import NoSuchElementException
 import time
 from dotenv import load_dotenv
 import os
+import logging
+
+logging.basicConfig(
+    filename='emergement.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    filemode='a'
+)
 
 load_dotenv()
 USERNAME = os.getenv("MoodleUs")
@@ -14,10 +22,12 @@ PASSWORD = os.getenv("MoodlePa")
 SHADOW = os.getenv("MoodleSh", "False").lower() == "true"
 STATUT = os.getenv("MoodleSt")
 
+logging.info("Ouverture du navigateur Selenium.")
+
 options = Options()
 if SHADOW:
     options.add_argument('-headless')
-service = Service(executable_path="geckodriver")
+service = Service(executable_path=f"{os.getcwd}/geckodriver")
 driver = webdriver.Firefox(options=options, service=service)
 
 driver.get("https://moodle.univ-ubs.fr/")
@@ -43,10 +53,12 @@ login_button.click()
 try:
     error_message = driver.find_element(By.XPATH, "//*[contains(text(), 'Mauvais identifiant / mot de passe')]")
     print("[-] Mauvais Identifiant ou Mot de passe")
+    logging.info("Mauvais Identifiant ou Mot de passe")
     driver.quit()
     quit()
 except NoSuchElementException:
-    print("[*] Login successful")
+    logging.warning("Connection réussi")
+    print("[*] Connection réussi")
 
 time.sleep(1)
 
@@ -65,7 +77,8 @@ try:
     link_href = link_element.get_attribute("href")
     driver.get(link_href)
 except NoSuchElementException:
-    print("[*] Impossible d'envoyer le statut")
+    logging.warning("Impossible d'envoyer le statut, statut non présent encore")
+    print("[*] Impossible d'envoyer le statut, statut non présent encore")
     driver.quit()
     quit()
 
@@ -76,8 +89,9 @@ present_radio_button.click()
 
 save_button = driver.find_element(By.XPATH, "//input[@type='submit' and @id='id_submitbutton']")
 save_button.click()
+
+logging.info("Statut envoyé avec succès")
 print("[*] Statut envoyé avec succès")
 
 time.sleep(4)
-
 driver.quit()
