@@ -83,8 +83,8 @@ try:
     link_href = link_element.get_attribute("href")
     driver.get(link_href)
 except NoSuchElementException:
-    logging.warning("Impossible d'envoyer le statut, statut non présent encore")
-    print("[*] Impossible d'envoyer le statut, statut non présent encore")
+    logging.warning("Impossible d'envoyer le statut, statut non présent")
+    print("[*] Impossible d'envoyer le statut, statut non présent")
     driver.quit()
     quit()
 
