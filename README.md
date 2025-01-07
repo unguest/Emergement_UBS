@@ -58,7 +58,7 @@ python3 Emerge.py
 
 Automatisation de l'émergement tous les jours de la semaine (du lundi au vendredi) le matin et le soir 
 
-1. **⚠️ Configuration **
+1. ⚠️ Configuration
 
 Selenium doit être configuré pour s'exécuter sans ouvrir de fenêtre de navigateur
 ```bash
