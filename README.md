@@ -16,6 +16,8 @@ pip install -r requirements.txt
 
 3. Créez le fichier `.env` pour y stocker vos identifiants et paramètres :
 ```bash
+MoodleCourseUrl=https://moodle.univ-ubs.fr/course/view.php?id=10731
+MoodleAttendanceUrl=https://moodle.univ-ubs.fr/mod/attendance/view.php?id=433339
 MoodleUs=A_Remplacer_Identifiant
 MoodlePa=A_Remplacer_MotDePasse
 MoodleSh=False #True
