@@ -17,8 +17,8 @@ logging.basicConfig(
 )
 
 load_dotenv()
-USERNAME = os.getenv("MoodleUs")
-PASSWORD = os.getenv("MoodlePa")
+USERNAME = os.getenv("MoodleUs", "USER")
+PASSWORD = os.getenv("MoodlePa", "PASS")
 SHADOW = os.getenv("MoodleSh", "False").lower() == "true"
 STATUT = os.getenv("MoodleSt")
 
@@ -27,7 +27,7 @@ logging.info("Ouverture du navigateur Selenium.")
 options = Options()
 if SHADOW:
     options.add_argument('-headless')
-service = Service(executable_path=f"{os.getcwd}/geckodriver")
+service = Service(executable_path=f"{os.getcwd()}/geckodriver")
 driver = webdriver.Firefox(options=options, service=service)
 
 driver.get("https://moodle.univ-ubs.fr/")
@@ -54,6 +54,8 @@ try:
     error_message = driver.find_element(By.XPATH, "//*[contains(text(), 'Mauvais identifiant / mot de passe')]")
     print("[-] Mauvais Identifiant ou Mot de passe")
     logging.info("Mauvais Identifiant ou Mot de passe")
+    if USERNAME == 'USER':
+        print("[-] Créez le fichier .env pour y stocker vos identifiants (https://github.com/MTlyx/Emergement_UBS)")
     driver.quit()
     quit()
 except NoSuchElementException:

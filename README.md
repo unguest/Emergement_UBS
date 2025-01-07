@@ -1,4 +1,4 @@
-# 🎓 Automatisation Moodle Université Bretagne Sud
+# 🎓 Automatisation de l'émergement sur Moodle pour l'Université Bretagne Sud
 
 Ce projet automatise l'émergement des élèves de l'Université Bretagne Sud en utilisant Selenium. 
 
@@ -27,7 +27,7 @@ MoodleSt=Présent #Absent #Excusé #Absent
 chmod +x geckodriver
 ```
 
-## Configuration
+## Configuration du fichier .env
 
 ### **MoodleUs** : 
 Définissez votre identifiant pour moodle
@@ -58,7 +58,7 @@ python3 Emerge.py
 
 Automatisation de l'émergement tous les jours de la semaine (du lundi au vendredi) le matin et le soir 
 
-1. ⚠️ Configuration
+1. ⚠️ Configuration ⚠️
 
 Selenium doit être configuré pour s'exécuter sans ouvrir de fenêtre de navigateur
 ```bash
