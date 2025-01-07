@@ -72,8 +72,8 @@ crontab -e
 
 3. Ajouter les lignes suivantes
 ```bash
-1 8 * * 1-5 python3 /path/to/Emerge.py
-46 14 * * 1-5 python3 /path/to/Emerge.py
+1 8 * * 1-5 python3 /path/to/Emergement_UBS/Emerge.py
+46 14 * * 1-5 python3 /path/to/Emergement_UBS/Emerge.py
 ```
 
 Les logs sont automatiquement sauvegarder dans le fichier emergement.log
